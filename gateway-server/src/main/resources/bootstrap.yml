@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    nacos:
+      config:
+        username: nacos
+        password: nacos
+        server-addr: localhost:8848
+        file-extension: yaml
+        namespace: b22559e1-4e3d-4037-b737-9680c73fddbc
+        group: DEFAULT_GROUP
+        refresh-enabled: true
+        shared-configs:
+          - data-id: ${spring.application.name}-${spring.profiles.active}.yml
+            group: ${spring.cloud.nacos.config.group:DEFAULT_GROUP}
+            refresh: true
+      discovery:
+        username: ${spring.cloud.nacos.config.username:nacos}
+        password: ${spring.cloud.nacos.config.password:nacos}
+        server-addr: ${spring.cloud.nacos.config.server-addr:localhost:8848}
+        namespace: ${spring.cloud.nacos.config.namespace:b22559e1-4e3d-4037-b737-9680c73fddbc}
+        group: ${spring.cloud.nacos.config.group:DEFAULT_GROUP}
+        service: ${spring.application.name}
+        ephemeral: true
